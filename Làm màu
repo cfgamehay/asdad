@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            position: relative;
+        }
+        
+        .background {
+            background-color: #E55137;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .wrapper {
+            background-color: #fff;
+            padding: 12px 17px;
+            border-radius: 5px;
+            width: 350px;
+            height: 200px;
+            text-align: center;
+        }
+        
+        h1 {
+            margin-top: 20px;
+        }
+        
+        button {
+            position: absolute;
+            top: 58%;
+            outline: none;
+            border: none;
+            background-color: #1F3438;
+            color: #fff;
+            padding: 7px 12px;
+            border-radius: 5px;
+            font-weight: 700;
+            min-width: 50px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: rgb(122, 121, 121);
+        }
+        
+        .yes {
+            left: 40%;
+        }
+        
+        .no {
+            right: 40%;
+            transition: all 0.25s;
+        }
+        
+        .overlay {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+        
+        .overlay-wrapper {
+            background-color: #fff;
+            width: 350px;
+            height: 200px;
+            border-radius: 5px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .change {
+            position: relative;
+            margin: 5px 2.5px;
+        }
+        
+        .overlay-wrapper .choose {
+            margin-top: 20px;
+        }
+        
+        .exit {
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            text-align: center;
+            font-weight: 900;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .showIn {
+            animation: showIn .75s ease-in-out;
+        }
+        
+        .showOut {
+            animation: showOut .75s ease-in-out;
+        }
+        
+        @keyframes showIn {
+            0% {
+                top: -1000px
+            }
+            70% {
+                top: 20px;
+            }
+            100% {
+                top: 0;
+            }
+        }
+        
+        @keyframes showOut {
+            0% {
+                top: 0;
+            }
+            70% {
+                top: 40px;
+            }
+            100% {
+                top: -1000px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background">
+        <div class="wrapper">
+            <div class="header">
+                <h1>
+                    Do you love me?
+                </h1>
+                <br>
+                <h2 class="icon">
+
+                </h2>
+            </div>
+            <div class="chooses">
+                <button class="yes">Yes</button>
+                <button class="no">No</button>
+            </div>
+        </div>
+    </div>
+    <div class="overlay">
+        <div class="overlay-wrapper">
+            <div class="exit">x</div>
+            <h1>Why you love me?</h1>
+            <div class="choose">
+                <button class="change">Because i like you</button>
+                <button class="change">You are cute</button>
+                <button class="change">Because of your dinosaur cook</button>
+                <button class="change">I just love your "Tam hon"</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        let no = document.querySelector('.no')
+        let yes = document.querySelector('.yes')
+        let overlayClose = document.querySelector('.overlay')
+        let closebtn = document.querySelector('.exit')
+        let overlayContent = document.querySelector('.overlay-wrapper')
+        let icon = document.querySelector('h2')
+        let i = 0;
+        let choose = document.querySelectorAll('.change')
+        no.addEventListener('mousemove', function() {
+            no.style.top = Math.random() * (innerHeight - 30) + "px"
+            no.style.right = Math.random() * (innerHeight - 50) + "px"
+            if (i < 50) {
+                icon.innerText = "😞"
+            } else if (i < 145) {
+                icon.innerText = "😢"
+            } else {
+                icon.innerText = "😭"
+            }
+            i++
+            console.log(i)
+        })
+        yes.addEventListener('mousemove', function() {
+            icon.innerText = "😁"
+            i = 0
+        })
+        yes.addEventListener('click', function() {
+            overlayContent.classList.remove('showOut')
+            overlayContent.classList.add('showIn')
+            overlayClose.style.display = 'flex'
+        })
+
+        overlayClose.addEventListener('click', function(x) {
+            if (x.target == overlayClose || x.target == closebtn) {
+                overlayContent.classList.add('showOut')
+                overlayContent.classList.remove('showIn')
+                setTimeout(closeOverLay, 730)
+
+            }
+        })
+
+        choose.forEach(e => {
+            e.addEventListener('click', function() {
+                // console.log(e)
+                alert(`You choose:"${e.innerHTML}", thanks you!`)
+            })
+        });
+
+        function closeOverLay() {
+            overlayClose.style.display = 'none'
+        }
+    </script>
+</body>
+
+</html>
